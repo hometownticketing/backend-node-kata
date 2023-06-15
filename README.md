@@ -30,6 +30,8 @@ Store the orders, stock, and any other necessary information by creating JSON or
 - The payment method (either **Physical** or **Credit**)
 - Its current status (assigned **AwaitingPayment**, **AwaitingStock**, or **Shipped** by the server)
 
+Create tests using **Jest** as needed. The testing file for "*program.ts*" would be named "*program.spec.ts*"
+
 ### **Endpoints**
 
 <hr>
