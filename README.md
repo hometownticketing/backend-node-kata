@@ -40,7 +40,8 @@ Create tests using **Jest** as needed. The testing file for "*program.ts*" would
 #### The API should be able to handle GET requests to:
 | Endpoint | Description |
 | --- | --- |
-| /orders | Get a list of all orders with the ability to filter to only pending or shipped orders. |
+| /orders | Get a list of all orders |
+| /orders/:orderStatus | Get a list of all orders with a status of *orderStatus*|
 | /order/:orderId | Get an order of a specific ID. |
 | /cutomer/:customerName | Get the orders of a specific customer. |
 | /stock/:product | Get the current stock of a product. |

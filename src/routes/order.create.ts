@@ -1,8 +1,13 @@
 import express from 'express';
+import { createOrder } from '../util/order-utility';
 
-export const orderCreate = (req: express.Request) => {
+/**
+ * Create an order
+ * 
+ * @method POST
+ * @endpoint /placeOrder
+ */
+export const orderCreate = async (req: express.Request) => {
     const {...data} = req.body;
-    console.log(data)
-
-     
+    return await createOrder(data.customer, data.product, data.quantity, data.paymentMethod);
 }
