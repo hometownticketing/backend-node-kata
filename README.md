@@ -9,12 +9,15 @@ If the order was a credit-card order, the business would not have to wait for th
 
 The customer is able to cancel the order at any time unless the order has already been shipped.
 
-Store the orders, stock, and any other necessary information by creating JSON or CSV files in the assets folder.
+You are provided with the *storage-utility*, *product-utility*, and *order-utility* modules for storing and handling product and order information.
+
+The *mock-response* module can, but does not have to, be used in writing tests.
 
 ## **Setup**
 - Download and run the [Node.js Installer](https://nodejs.dev/en/download/)
 - [Install](https://git-scm.com/downloads) Git and follow the [Setup Guide](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup)
-- Clone the main branch of this repository to your device ([tutorial](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository))
+- Create a new branch from main on this repository and name it in the format "**Firstname-Lastname**"
+- Clone your branch of this repository to your device ([tutorial](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository))
 - Open the terminal in the root directory of this Kata
 - Run the command, `npm install`
 
@@ -37,28 +40,17 @@ Create tests using **Jest** as needed. The testing file for "*program.ts*" would
 <hr>
 <br>
 
-#### The API should be able to handle GET requests to:
-| Endpoint | Description |
-| --- | --- |
-| /orders | Get a list of all orders with the ability to filter to only pending or shipped orders. |
-| /order/:orderId | Get an order of a specific ID. |
-| /cutomer/:customerName | Get the orders of a specific customer. |
-| /stock/:product | Get the current stock of a product. |
+#### The API should handle the following order operations:
+| Endpoint                    | Method | Description                                                                           |
+| ---                         | ---    | ---                                                                                   |
+| /orders                     | GET    | Get a list of all orders. This should handle filtering using query parameters.        |
+| /orders                     | POST   | Place a new order.                                                                    |
+| /orders/:orderId            | GET    | Get an order of a specific ID.                                                        |
+| /orders/:orderId            | DELETE | Attempt to cancel an order (The order can only be canceled if it hasn't been shipped) |
+| /orders/:orderId/pay        | PUT    | Notify the system that the payment for an order with a specific ID has arrived.       |
 
-<hr>
-<br>
-
-#### The API should be able to handle POST requests to:
-| Endpoint | Description |
-| ---      | ---         |
-| /placeOrder | Place a new order. |
-
-<hr>
-<br>
-
-#### The API should be able to handle PUT requests to:
-| Endpoint | Description |
-| --- | --- |
-| /providePayment | Notify the system that the payment for an order with a specific ID has arrived.
-| /cancelOrder |Attempt to cancel an order (The order can only be canceled if it hasn't been shipped) |.
-| /updateStock | Update the stock of a product of a specific ID. |
+#### The API should handle the following stock operations:
+| Endpoint        | Method | Description                         |
+| ---             | ---    | ---                                 |
+| /stock/:product | GET    | Get the current stock of a product. |
+| /stock/:product | PUT    | Update the stock of a product.      |
