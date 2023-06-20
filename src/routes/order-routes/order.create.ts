@@ -1,5 +1,6 @@
 import express from 'express';
 import { createOrder } from '../../util/order-utility';
+import { StatusCodes } from 'http-status-codes';
 
 /**
  * Create an order and store it
@@ -13,14 +14,14 @@ export const orderCreate = async (req: express.Request, res: express.Response) =
     if(data.customer !== undefined && data.product !== undefined && data.quantity !== undefined && data.paymentMethod !== undefined) {
         const newOrder = await createOrder(data.customer, data.product, data.quantity, data.paymentMethod);
         if(newOrder !== null) {
-            res.sendStatus(200);
+            res.sendStatus(StatusCodes.NO_CONTENT);
             return newOrder;
         } else {
-            res.sendStatus(500);
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR).send('Error creating order');
             return null;
         }
     } else {
-        res.sendStatus(400)
+        res.sendStatus(StatusCodes.BAD_REQUEST);
         return null;
     }
 }

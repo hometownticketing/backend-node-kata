@@ -1,5 +1,6 @@
 import express from 'express';
 import { getStock, setStock } from '../../util/storage-utility';
+import { StatusCodes } from 'http-status-codes';
 
 /**
  * Update the quantity of a product in the stock
@@ -13,7 +14,7 @@ export const stockUpdate = async (req: express.Request, res: express.Response) =
     const {...data} = req.body;
 
     if(params.product === undefined || data.quantity === undefined) {
-        res.sendStatus(400);
+        res.sendStatus(StatusCodes.BAD_REQUEST);
         return false;
     }
 
@@ -21,22 +22,22 @@ export const stockUpdate = async (req: express.Request, res: express.Response) =
     const product = stock.find(p => p.name === params.product);
 
     if(product === undefined) {
-        res.status(404).send('Product is not supported');
+        res.status(StatusCodes.NOT_FOUND).send('Product is not supported');
         return false;
     }
     
     try {
         product.quantity = parseInt(data.quantity);
     } catch(err) {
-        res.status(400).send('Invalid Quantity');
+        res.status(StatusCodes.BAD_REQUEST).send('Invalid Quantity');
         return false;
     }
 
     if(await setStock(stock)) {
-        res.sendStatus(200);
+        res.sendStatus(StatusCodes.NO_CONTENT);
         return true;
     } else {
-        res.sendStatus(500);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send('Error updating stock');
         return false;
     }
 }
