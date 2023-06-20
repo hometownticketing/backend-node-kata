@@ -9,7 +9,9 @@ If the order was a credit-card order, the business would not have to wait for th
 
 The customer is able to cancel the order at any time unless the order has already been shipped.
 
-Store the orders, stock, and any other necessary information by creating JSON or CSV files in the assets folder.
+You are provided with the *storage-utility*, *product-utility*, and *order-utility* modules for storing and handling product and order information.
+
+The *mock-response* module can, but does not have to, be used in writing tests.
 
 ## **Setup**
 - Download and run the [Node.js Installer](https://nodejs.dev/en/download/)
