@@ -6,6 +6,7 @@ import { getOrders } from '../util/storage-utility';
  * 
  * @method GET
  * @endpoint /orders/:orderStatus
+ * @returns A list of all orders with the given status
  */
 export const orderFilteredList = async (req: express.Request, res: express.Response) => {
     const {...params} = req.params;

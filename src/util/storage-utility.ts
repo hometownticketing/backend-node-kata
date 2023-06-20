@@ -31,6 +31,7 @@ const dataStoreSkeleton = {
         
     ]
 }
+
 /**
  * Retrieve the list of orders from the dataStore
  * 
@@ -56,7 +57,7 @@ export const setOrders = async (newOrders): Promise<boolean> => {
 
 /**
  * Retrieve the stock from the dataStore
- * <p>
+ * 
  * The stock is a list of product objects
  * 
  * @returns A list of product objects
@@ -68,7 +69,7 @@ export const getStock = async () => {
 
 /**
  * Save an updated stock to the dataStore
- * <p>
+ * 
  * The stock is a list of product objects
  * 
  * @param newStock The updated stock list
@@ -83,7 +84,7 @@ export const setStock = async (newStock): Promise<boolean> => {
 
 /**
  * Get the orderId to be used for the next order.
- * <p>
+ * 
  * This also updates the lastOrderId number in the dataStore.
  * 
  * @returns The next orderId to be used.
@@ -98,7 +99,7 @@ export const getNextOrderId = async (): Promise<number> => {
 
 /**
  * Wipe the dataStore
- * <p>
+ * 
  * This will mainly be used for testing.
  * 
  * @returns True if the data was successfully wiped, otherwise, false.

@@ -6,6 +6,7 @@ import { getOrders } from '../util/storage-utility';
  * 
  * @method GET
  * @endpoint /customer/:customerName
+ * @returns the list of all orders that are under the name of the customer
  */
 export const orderCustomerSearch = async (req: express.Request, res: express.Response) => {
     const {...params} = req.params;

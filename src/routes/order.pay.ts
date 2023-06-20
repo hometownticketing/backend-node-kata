@@ -6,8 +6,9 @@ import { getOrder, updateStatus } from '../util/order-utility';
  * 
  * @method PUT
  * @endpoint /providePayment
+ * @returns The order that has been updated after receiving payment
  */
 export const orderPay = async (req: express.Request) => {
     const {...data} = req.body;
-    await updateStatus(parseInt(data.orderId), true);
+    return await updateStatus(parseInt(data.orderId), true);
 }

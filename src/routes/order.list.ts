@@ -6,6 +6,7 @@ import { getOrders } from '../util/storage-utility';
  * 
  * @method GET
  * @endpoint /orders
+ * @returns A list of all orders
  */
 export const orderList = async (req: express.Request, res: express.Response) => {
     const orders = await getOrders();

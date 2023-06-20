@@ -6,6 +6,7 @@ import { checkStock } from '../util/product-utility';
  * 
  * @method GET
  * @endpoint /stock/:product
+ * @returns A result object containing the product name and quantity.
  */
 export const stockCheck = async (req: express.Request, res: express.Response) => {
     const {...params} = req.params;

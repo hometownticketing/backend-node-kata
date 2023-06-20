@@ -9,6 +9,8 @@ import { checkStock, updateStock } from "./product-utility";
  * @param quantity The quantity that was ordered
  * @param paymentMethod The payment method (defaults to PaymentMethod.Credit)
  * @param date The date that the order was placed (defaults to the current date)
+ * 
+ * @returns The order that has been created.
  */
 export const createOrder = async (customer: string, product: string, quantity: number, paymentMethod: number = PaymentMethod.Credit, date: Date = new Date()) => {
     const orderId = await getNextOrderId();
@@ -27,8 +29,7 @@ export const createOrder = async (customer: string, product: string, quantity: n
 
     await setOrders(orders);
 
-    await updateStatus(newOrder.orderId);
-    return getOrder(orderId);
+    return await updateStatus(newOrder.orderId);
 }
 
 /**
@@ -36,6 +37,8 @@ export const createOrder = async (customer: string, product: string, quantity: n
  * 
  * @param orderId The id of the order
  * @param paymentArrived Whether the payment for the order has arrived (false by default)
+ * 
+ * @returns The updated order
  */
 export const updateStatus = async (orderId: number, paymentArrived = false) => {
     const orders = await getOrders();
@@ -43,14 +46,14 @@ export const updateStatus = async (orderId: number, paymentArrived = false) => {
     const order = orders[orderIdx];
 
     if(order === undefined || order.status === OrderStatus.Shipped) {
-        return;
+        return order;
     }
     
     if(order.status === OrderStatus.AwaitingPayment) {
         if(paymentArrived) {
             order.status = OrderStatus.AwaitingStock;
         } else {
-            return;
+            return order;
         }
     }
     if(order.status === OrderStatus.AwaitingStock) {
@@ -63,8 +66,15 @@ export const updateStatus = async (orderId: number, paymentArrived = false) => {
 
     orders[orderIdx] = order;
     await setOrders(orders);
+    return order;
 }
 
+/**
+ * Retrieve an order of a given ID from the dataStore
+ * 
+ * @param orderId The ID of the order to retrieve
+ * @returns The order
+ */
 export const getOrder = async (orderId: number) => {
     const orders = await getOrders();
     return orders.find(o => o.orderId === orderId);
