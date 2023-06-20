@@ -1,5 +1,5 @@
 import express from 'express';
-import { getOrders } from '../../util/storage-utility';
+import { getOrders } from '../util/storage-utility';
 
 /**
  * Create an order

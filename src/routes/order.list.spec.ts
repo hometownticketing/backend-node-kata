@@ -1,8 +1,8 @@
 import express from 'express';
-import { getOrders } from '../../util/storage-utility';
+import { getOrders } from '../util/storage-utility';
 import { orderList } from './order.list';
-import { mockResponse } from '../../util/testing-util/mock-response';
-import { OrderStatus } from '../../util/order-utility';
+import { mockResponse } from '../util/testing-util/mock-response';
+import { OrderStatus } from '../util/order-utility';
 
 describe('Order List Route', () => {
     it('Should respond with a list of all orders', async () => {
