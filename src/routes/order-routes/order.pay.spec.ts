@@ -1,5 +1,5 @@
 import express from 'express';
-import { OrderStatus, PaymentMethod, createOrder, getOrder } from '../util/order-utility';
+import { OrderStatus, PaymentMethod, createOrder, getOrder } from '../../util/order-utility';
 import { orderPay } from './order.pay';
 
 describe('Order Pay Route', () => {
@@ -7,10 +7,10 @@ describe('Order Pay Route', () => {
         const order = await createOrder('Fred', 'A', 1000, PaymentMethod.Physical);
 
         const req = {
-            body: {
+            params: {
                 orderId: order.orderId
             }
-        } as express.Request;
+        } as unknown as express.Request;
 
         await orderPay(req);
 
@@ -21,10 +21,10 @@ describe('Order Pay Route', () => {
         const order = await createOrder('Hank', 'A', 10, PaymentMethod.Physical);
 
         const req = {
-            body: {
+            params: {
                 orderId: order.orderId
             }
-        } as express.Request;
+        } as unknown as express.Request;
 
         await orderPay(req);
 

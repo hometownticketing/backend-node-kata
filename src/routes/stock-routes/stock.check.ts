@@ -1,5 +1,5 @@
 import express from 'express';
-import { checkStock } from '../util/product-utility';
+import { checkStock } from '../../util/product-utility';
 
 /**
  * Check the stock of a product

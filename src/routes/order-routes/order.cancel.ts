@@ -1,6 +1,6 @@
 import express from 'express';
-import { getOrders, setOrders } from '../util/storage-utility';
-import { OrderStatus } from '../util/order-utility';
+import { OrderStatus } from '../../util/order-utility';
+import { getOrders, setOrders } from '../../util/storage-utility';
 
 /**
  * Attempt to cancel an order of a given orderId
@@ -10,10 +10,10 @@ import { OrderStatus } from '../util/order-utility';
  * @returns True if the order was successfully canceled, otherwise, false.
  */
 export const orderCancel = async (req: express.Request): Promise<boolean> => {
-    const {...data} = req.body;
+    const {...params} = req.params;
 
     const orders = await getOrders();
-    const order = orders.find(o => o.orderId == data.orderId);
+    const order = orders.find(o => o.orderId == params.orderId);
     if(order.status == OrderStatus.Shipped) {
         return false;
     }

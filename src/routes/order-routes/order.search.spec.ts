@@ -1,7 +1,7 @@
 import express from 'express';
 import { orderSearch } from './order.search';
-import { mockResponse } from '../util/testing-util/mock-response';
-import { getOrder } from '../util/order-utility';
+import { mockResponse } from '../../util/testing-util/mock-response';
+import { getOrder } from '../../util/order-utility';
 
 describe('Order Search Route', () => {
     it('should retrieve the correct order', async () => {

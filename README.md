@@ -37,29 +37,17 @@ Create tests using **Jest** as needed. The testing file for "*program.ts*" would
 <hr>
 <br>
 
-#### The API should be able to handle GET requests to:
-| Endpoint | Description |
-| --- | --- |
-| /orders | Get a list of all orders |
-| /orders/:orderStatus | Get a list of all orders with a status of *orderStatus*|
-| /order/:orderId | Get an order of a specific ID. |
-| /cutomer/:customerName | Get the orders of a specific customer. |
-| /stock/:product | Get the current stock of a product. |
+#### The API should handle the following order operations:
+| Endpoint                    | Method | Description                                                                           |
+| ---                         | ---    | ---                                                                                   |
+| /orders                     | GET    | Get a list of all orders. This should handle filtering using query parameters.        |
+| /orders                     | POST   | Place a new order.                                                                    |
+| /orders/:orderId            | GET    | Get an order of a specific ID.                                                        |
+| /orders/:orderId            | DELETE | Attempt to cancel an order (The order can only be canceled if it hasn't been shipped) |
+| /orders/:orderId/pay        | PUT    | Notify the system that the payment for an order with a specific ID has arrived.       |
 
-<hr>
-<br>
-
-#### The API should be able to handle POST requests to:
-| Endpoint | Description |
-| ---      | ---         |
-| /placeOrder | Place a new order. |
-
-<hr>
-<br>
-
-#### The API should be able to handle PUT requests to:
-| Endpoint | Description |
-| --- | --- |
-| /providePayment | Notify the system that the payment for an order with a specific ID has arrived.
-| /cancelOrder |Attempt to cancel an order (The order can only be canceled if it hasn't been shipped) |.
-| /updateStock | Update the stock of a product of a specific ID. |
+#### The API should handle the following stock operations:
+| Endpoint        | Method | Description                         |
+| ---             | ---    | ---                                 |
+| /stock/:product | GET    | Get the current stock of a product. |
+| /stock/:product | PUT    | Update the stock of a product.      |

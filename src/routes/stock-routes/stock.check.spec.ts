@@ -1,7 +1,7 @@
 import express from 'express';
 import { stockCheck } from './stock.check';
-import { mockResponse } from '../util/testing-util/mock-response';
-import { checkStock } from '../util/product-utility';
+import { mockResponse } from '../../util/testing-util/mock-response';
+import { checkStock } from '../../util/product-utility';
 
 describe('Stock Check Route', () => {
     it('should return the correct stock for a product', async () => {

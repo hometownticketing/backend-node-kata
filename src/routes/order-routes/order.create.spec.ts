@@ -1,8 +1,11 @@
 import express from 'express';
 
-import { OrderStatus, PaymentMethod } from '../util/order-utility';
+import { OrderStatus, PaymentMethod } from '../../util/order-utility';
 import { orderCreate } from './order.create';
-import { checkStock } from '../util/product-utility';
+import { checkStock } from '../../util/product-utility';
+import { wipeDataStore } from '../../util/storage-utility';
+
+beforeAll(wipeDataStore);
 
 describe('Order Create Route', () => {
     it('should create a new order with the correct values and store it', async () => {

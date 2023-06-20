@@ -1,6 +1,5 @@
 import express from 'express';
-import { getOrders } from '../util/storage-utility';
-import { getOrder } from '../util/order-utility';
+import { getOrder } from '../../util/order-utility';
 
 /**
  * Find a specific order using its id

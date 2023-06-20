@@ -1,5 +1,5 @@
 import express from 'express';
-import { PaymentMethod, createOrder, getOrder } from '../util/order-utility';
+import { PaymentMethod, createOrder, getOrder } from '../../util/order-utility';
 import { orderCancel } from './order.cancel';
 
 describe('Order Cancel Route', () => {
@@ -7,10 +7,10 @@ describe('Order Cancel Route', () => {
         const order = await createOrder('Henry', 'B', 15, PaymentMethod.Physical);
 
         const req = {
-            body: {
+            params: {
                 orderId: order.orderId
             }
-        } as express.Request;
+        } as unknown as express.Request;
 
         await orderCancel(req);
 
@@ -21,10 +21,10 @@ describe('Order Cancel Route', () => {
         const order = await createOrder('George', 'B', 15, PaymentMethod.Credit);
 
         const req = {
-            body: {
+            params: {
                 orderId: order.orderId
             }
-        } as express.Request;
+        } as unknown as express.Request;
 
         await orderCancel(req);
 
