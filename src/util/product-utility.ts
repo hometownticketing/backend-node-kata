@@ -4,11 +4,18 @@ import { getStock, setStock } from "./storage-utility"
  * Get the current stock of a product
  * 
  * @param productName The name of the product
- * @returns The current stock of the product
+ * @returns The current stock of the product or -1 if the product is not supported
  */
 export const checkStock = async (productName: string): Promise<number> => {
     const stock = await getStock();
-    return stock.find(e => e.name === productName).quantity;
+
+    const product = stock.find(e => e.name === productName);
+
+    if(product === undefined) {
+        return -1;
+    }
+
+    return product.quantity;
 }
 
 /**

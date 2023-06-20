@@ -9,14 +9,30 @@ import { getOrders, setOrders } from '../../util/storage-utility';
  * @endpoint /cancelOrder
  * @returns True if the order was successfully canceled, otherwise, false.
  */
-export const orderCancel = async (req: express.Request): Promise<boolean> => {
+export const orderCancel = async (req: express.Request, res: express.Response): Promise<boolean> => {
     const {...params} = req.params;
 
-    const orders = await getOrders();
-    const order = orders.find(o => o.orderId == params.orderId);
-    if(order.status == OrderStatus.Shipped) {
+    if(!params.orderId) {
+        res.sendStatus(400);
         return false;
     }
 
-    return await setOrders(orders.filter(o => o.orderId != order.orderId));
+    const orders = await getOrders();
+    const order = orders.find(o => o.orderId == params.orderId);
+
+    if(order === undefined) {
+        res.sendStatus(404);
+        return false;
+    } else if(order.status == OrderStatus.Shipped) {
+        res.status(405).send('Cannot cancel a shipped order');
+        return false;
+    }
+
+    if(await setOrders(orders.filter(o => o.orderId != order.orderId))) {
+        res.sendStatus(200);
+        return true;
+    } else {
+        res.sendStatus(500);
+        return false;
+    }
 }

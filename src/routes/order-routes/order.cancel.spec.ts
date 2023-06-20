@@ -1,6 +1,7 @@
 import express from 'express';
 import { PaymentMethod, createOrder, getOrder } from '../../util/order-utility';
 import { orderCancel } from './order.cancel';
+import { mockResponse } from '../../util/testing-util/mock-response';
 
 describe('Order Cancel Route', () => {
     it('should cancel an order that hasn\'t been shipped', async () => {
@@ -12,7 +13,7 @@ describe('Order Cancel Route', () => {
             }
         } as unknown as express.Request;
 
-        await orderCancel(req);
+        await orderCancel(req, mockResponse());
 
         expect(getOrder(order.orderId)).resolves.toBeUndefined();
     });
@@ -26,7 +27,7 @@ describe('Order Cancel Route', () => {
             }
         } as unknown as express.Request;
 
-        await orderCancel(req);
+        await orderCancel(req, mockResponse());
 
         expect(getOrder(order.orderId)).resolves.toBeDefined();
     });

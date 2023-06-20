@@ -6,19 +6,29 @@ import { checkStock } from '../../util/product-utility';
  * 
  * @method GET
  * @endpoint /stock/:product
- * @returns A result object containing the product name and quantity.
+ * @returns A result object containing the product name and quantity or null if there was an issue checking the stock.
  */
 export const stockCheck = async (req: express.Request, res: express.Response) => {
     const {...params} = req.params;
 
+    if(params.product === undefined) {
+        res.sendStatus(400);
+        return null;
+    }
+
     const productStock = await checkStock(params.product);
 
+    if(productStock === -1) {
+        res.status(404).send('Product is not supported');
+        return null;
+    }
+    
     const result = {
         product: params.product,
         stock: productStock
     };
 
-    res.send(result)
+    res.send(result);
     
     return result;
 }

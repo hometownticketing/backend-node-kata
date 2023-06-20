@@ -1,6 +1,7 @@
 import express from 'express';
 import { OrderStatus, PaymentMethod, createOrder, getOrder } from '../../util/order-utility';
 import { orderPay } from './order.pay';
+import { mockResponse } from '../../util/testing-util/mock-response';
 
 describe('Order Pay Route', () => {
     it('should change the status of an order that needs stock to OrderStatus.AwaitingStock', async () => {
@@ -12,7 +13,7 @@ describe('Order Pay Route', () => {
             }
         } as unknown as express.Request;
 
-        await orderPay(req);
+        await orderPay(req, mockResponse());
 
         expect((await getOrder(order.orderId)).status).toBe(OrderStatus.AwaitingStock);
     });
@@ -26,7 +27,7 @@ describe('Order Pay Route', () => {
             }
         } as unknown as express.Request;
 
-        await orderPay(req);
+        await orderPay(req, mockResponse());
 
         expect((await getOrder(order.orderId)).status).toBe(OrderStatus.Shipped);
     });

@@ -14,7 +14,8 @@ Store the orders, stock, and any other necessary information by creating JSON or
 ## **Setup**
 - Download and run the [Node.js Installer](https://nodejs.dev/en/download/)
 - [Install](https://git-scm.com/downloads) Git and follow the [Setup Guide](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup)
-- Clone the main branch of this repository to your device ([tutorial](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository))
+- Create a new branch from main on this repository and name it in the format "**Firstname-Lastname**"
+- Clone your branch of this repository to your device ([tutorial](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository))
 - Open the terminal in the root directory of this Kata
 - Run the command, `npm install`
 

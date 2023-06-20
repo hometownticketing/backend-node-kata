@@ -6,9 +6,22 @@ import { updateStatus } from '../../util/order-utility';
  * 
  * @method PUT
  * @endpoint /providePayment
- * @returns The order that has been updated after receiving payment
+ * @returns The order that has been updated after receiving payment or null if there is an invalid orderId
  */
-export const orderPay = async (req: express.Request) => {
+export const orderPay = async (req: express.Request, res: express.Response) => {
     const {...params} = req.params;
-    return await updateStatus(parseInt(params.orderId), true);
+
+    if(params.orderId === undefined) {
+        res.sendStatus(400);
+        return null;
+    }
+
+    const updatedOrder = await updateStatus(params.orderId, true);
+    if(updatedOrder === null) {
+        res.sendStatus(400);
+        return null;
+    } else {
+        res.sendStatus(200);
+        return updatedOrder;
+    }
 }

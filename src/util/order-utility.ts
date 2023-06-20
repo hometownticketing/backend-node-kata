@@ -10,7 +10,7 @@ import { checkStock, updateStock } from "./product-utility";
  * @param paymentMethod The payment method (defaults to PaymentMethod.Credit)
  * @param date The date that the order was placed (defaults to the current date)
  * 
- * @returns The order that has been created.
+ * @returns The order that has been created or null if there was a creation issue.
  */
 export const createOrder = async (customer: string, product: string, quantity: number, paymentMethod: number = PaymentMethod.Credit, date: Date = new Date()) => {
     const orderId = await getNextOrderId();
@@ -38,14 +38,20 @@ export const createOrder = async (customer: string, product: string, quantity: n
  * @param orderId The id of the order
  * @param paymentArrived Whether the payment for the order has arrived (false by default)
  * 
- * @returns The updated order
+ * @returns The updated order or null if the orderId is invalid
  */
-export const updateStatus = async (orderId: number, paymentArrived = false) => {
+export const updateStatus = async (orderId, paymentArrived = false) => {
     const orders = await getOrders();
-    const orderIdx = orders.findIndex(o => o.orderId === orderId);
+    const orderIdx = orders.findIndex(o => o.orderId == orderId);
+
+    if(orderIdx === -1) {
+        return null;
+    }
+    
     const order = orders[orderIdx];
 
-    if(order === undefined || order.status === OrderStatus.Shipped) {
+
+    if(order.status === OrderStatus.Shipped) {
         return order;
     }
     
@@ -75,9 +81,9 @@ export const updateStatus = async (orderId: number, paymentArrived = false) => {
  * @param orderId The ID of the order to retrieve
  * @returns The order
  */
-export const getOrder = async (orderId: number) => {
+export const getOrder = async (orderId) => {
     const orders = await getOrders();
-    return orders.find(o => o.orderId === orderId);
+    return orders.find(o => o.orderId == orderId);
 }
 
 export const PaymentMethod = {

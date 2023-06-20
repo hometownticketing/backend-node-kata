@@ -4,6 +4,7 @@ import { OrderStatus, PaymentMethod } from '../../util/order-utility';
 import { orderCreate } from './order.create';
 import { checkStock } from '../../util/product-utility';
 import { wipeDataStore } from '../../util/storage-utility';
+import { mockResponse } from '../../util/testing-util/mock-response';
 
 beforeAll(wipeDataStore);
 
@@ -18,7 +19,7 @@ describe('Order Create Route', () => {
             }
         } as express.Request
 
-        const orderRes = await orderCreate(req);
+        const orderRes = await orderCreate(req, mockResponse());
 
         expect(orderRes).not.toBeNull();
         expect(orderRes.customer).toBe('Bill');
@@ -36,7 +37,7 @@ describe('Order Create Route', () => {
             }
         } as express.Request
 
-        const orderRes = await orderCreate(req);
+        const orderRes = await orderCreate(req, mockResponse());
 
         expect(orderRes.status).toBe(OrderStatus.AwaitingStock);
     });
@@ -51,7 +52,7 @@ describe('Order Create Route', () => {
             }
         } as express.Request
 
-        const orderRes = await orderCreate(req);
+        const orderRes = await orderCreate(req, mockResponse());
 
         expect(orderRes.status).toBe(OrderStatus.AwaitingPayment);
     });
@@ -66,7 +67,7 @@ describe('Order Create Route', () => {
             }
         } as express.Request
 
-        const orderRes = await orderCreate(req);
+        const orderRes = await orderCreate(req, mockResponse());
 
         expect(orderRes.status).toBe(OrderStatus.Shipped);
         expect(checkStock('C')).resolves.toBe(65);
