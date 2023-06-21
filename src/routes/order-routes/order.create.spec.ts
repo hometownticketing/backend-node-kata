@@ -32,9 +32,10 @@ describe('Order Create Route', () => {
     });
 
     it('should ship a product if there is enough stock and decrease stock after', async () => {
+        const initialStock = await checkStock('C');
         const orderRes = await orderCreate(mockOrderReq('BillBob', 'C', 35), mockResponse());
 
         expect(orderRes.status).toBe(OrderStatus.Shipped);
-        expect(checkStock('C')).resolves.toBe(65);
+        expect(checkStock('C')).resolves.toBe(initialStock - 35);
     });
 });

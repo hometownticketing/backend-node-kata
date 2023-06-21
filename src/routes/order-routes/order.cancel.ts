@@ -13,7 +13,7 @@ import { StatusCodes } from 'http-status-codes';
 export const orderCancel = async (req: express.Request, res: express.Response): Promise<boolean> => {
     const {...params} = req.params;
 
-    if(!params.orderId) {
+    if(params.orderId === undefined) {
         res.sendStatus(StatusCodes.BAD_REQUEST);
         return false;
     }

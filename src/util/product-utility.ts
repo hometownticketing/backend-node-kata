@@ -33,15 +33,17 @@ export const updateStock = async (productName: string, newQuantity: number) => {
     const stock = await getStock();
 
     const prodIdx = stock.findIndex(e => e.name === productName);
+    const oldQuantity = stock[prodIdx].quantity;
     stock[prodIdx].quantity = newQuantity;
 
     await setStock(stock);
 
-    
-    const orders = await getOrders();
-    for(const order of orders) {
-        if(order.product === productName && order.status === OrderStatus.AwaitingStock) {
-            await updateStatus(order.orderId);
+    if(newQuantity > oldQuantity) {
+        const orders = await getOrders();
+        for(const order of orders) {
+            if(order.product === productName && order.status === OrderStatus.AwaitingStock) {
+                await updateStatus(order.orderId);
+            }
         }
     }
 }
