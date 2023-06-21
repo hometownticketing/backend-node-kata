@@ -1,5 +1,5 @@
 # Order Processing Backend Kata
-This Kata is adapted from the the [More Business Rules Kata](http://codekata.com/kata/kata17-more-business-rules/) from http://codekata.com/.
+This Kata is adapted from the [More Business Rules Kata](http://codekata.com/kata/kata17-more-business-rules/) from http://codekata.com/.
 
 For this Kata, you will create a REST API using Node.js and Express.js for a business that processes orders and payments over the web. The business produces products **A**, **B**, **C**, **D**, and **E**. Assume that the business starts with a stock of 100 units of each product.
 
