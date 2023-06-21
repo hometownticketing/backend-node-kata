@@ -1,4 +1,5 @@
-import { getStock, setStock } from "./storage-utility"
+import { OrderStatus, updateStatus } from "./order-utility";
+import { getOrders, getStock, setStock } from "./storage-utility"
 
 /**
  * Get the current stock of a product
@@ -35,4 +36,12 @@ export const updateStock = async (productName: string, newQuantity: number) => {
     stock[prodIdx].quantity = newQuantity;
 
     await setStock(stock);
+
+    
+    const orders = await getOrders();
+    for(const order of orders) {
+        if(order.product === productName && order.status === OrderStatus.AwaitingStock) {
+            await updateStatus(order.orderId);
+        }
+    }
 }
